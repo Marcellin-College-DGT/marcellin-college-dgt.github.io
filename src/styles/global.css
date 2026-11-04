@@ -30,6 +30,10 @@
   }
 }
 
+[hidden] {
+  display: none !important;
+}
+
 *,
 *::before,
 *::after {
@@ -117,10 +121,23 @@ kbd {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: var(--ink);
   text-decoration: none;
   font-weight: 700;
   line-height: 1.2;
+}
+
+/* The crest has a white background, so it sits on a white tile in dark mode too */
+.crest {
+  display: block;
+  width: 34px;
+  height: auto;
+  background: #fff;
+  border-radius: 6px;
+  padding: 2px;
 }
 
 .brand small {
