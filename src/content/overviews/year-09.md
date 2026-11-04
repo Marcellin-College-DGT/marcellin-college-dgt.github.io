@@ -1,32 +1,29 @@
 ---
 title: Year 9 Digital Technologies
 year: 9
-curriculum: Technology, Years 0–10 (Phase 4)
-summary: You take DGT for a third of the year, three periods a week. You start by programming a micro:bit, then plan and build your own web page with HTML and CSS.
+curriculum: The New Zealand Curriculum (2007), Digital Technologies – Designing and Developing Digital Outcomes, Progress Outcomes 2 and 3
+summary: You take DGT for a third of the year, three periods a week. Your graded task is My Passion Page, a one-page website you build with HTML and CSS for one real reader.
 units:
-  - name: Programming a micro:bit
-    graded: false
-    summary: Learn how programs work by coding a micro:bit and testing what it does. This unit is for practice, so it isn't graded.
-  - name: Build a web page
+  - name: My Passion Page
     graded: true
-    summary: Plan and build your own web page with HTML and CSS in VS Code. This is your graded assessment.
+    summary: Plan, build and test a one-page website about something you love, in VS Code. You have 9 periods over 3 weeks.
 canDo:
-  - Write a short program for a micro:bit, test it and fix it
+  - Plan a web page around what one real reader needs
   - Build a web page with HTML and style it with CSS
-  - Save your work in Google Drive so you can open it on any school computer
-  - Hand in your work on Google Classroom
+  - Organise and name your files, and save them in Google Drive
+  - Test your page, use feedback to improve it and explain your choices
 tools:
-  - micro:bit
   - VS Code
   - HTML and CSS
+  - Live Server
+  - Draw.io
   - Google Drive for desktop
-  - Grok Academy
   - Google Classroom
 draft: false
 ---
 
 ## How Year 9 DGT works
 
-In class you'll work through Grok Academy courses to learn the skills first. Your Grok progress helps you learn, but it doesn't count towards your grade. Your grade comes from your web page assessment.
+Your work is graded at a curriculum level. For My Passion Page, **4A** is the expected standard, and the rubric in the task shows every grade.
 
-You'll often plan on paper first, then copy your plan into your template. Hand in everything on Google Classroom.
+Fill in your evidence template as you go, and hand everything in on Google Classroom.
