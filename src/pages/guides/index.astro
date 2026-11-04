@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import GuideList from '../../components/GuideList.astro';
+import { guides, guidesByTool } from '../../lib/site';
+
+const groups = guidesByTool(await guides());
+---
+
+<Base title="How-to guides" description="Step-by-step setup and how-to guides for DGT tools.">
+  <p class="crumbs"><a href="/">Home</a> › How-to guides</p>
+  <h1>How-to guides</h1>
+  <p class="lead">Each guide does one job. Find the tool you're using, then the job you need to do.</p>
+
+  {
+    groups.length ? (
+      groups.map(([tool, items]) => (
+        <>
+          <h2>{tool}</h2>
+          <GuideList items={items} />
+        </>
+      ))
+    ) : (
+      <p class="empty">Guides are on the way.</p>
+    )
+  }
+</Base>

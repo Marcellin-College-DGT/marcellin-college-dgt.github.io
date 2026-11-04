@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Leave the page out of search results (e.g. the search page itself). */
+  noSearchIndex?: boolean;
+}
+
+const { title, description = 'Digital Technologies resources for Marcellin College ākonga.', noSearchIndex = false } =
+  Astro.props;
+const fullTitle = title === 'Home' ? 'DGT · Marcellin College' : `${title} · DGT · Marcellin College`;
+const path = Astro.url.pathname;
+const here = (prefix: string) => (path.startsWith(prefix) ? 'page' : undefined);
+---
+
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-head">
+      <div class="wrap">
+        <a class="brand" href="/">DGT<small>Marcellin College Digital Technologies</small></a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/" aria-current={path === '/' ? 'page' : undefined}>Years</a>
+          <a href="/guides/" aria-current={here('/guides/')}>How-to guides</a>
+          <a href="/search/" aria-current={here('/search/')}>Search</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap" data-pagefind-body={noSearchIndex ? undefined : ''}>
+      <slot />
+    </main>
+    <footer class="site-foot">
+      <div class="wrap">
+        Hand in your work on Google Classroom. Stuck? Ask your kaiako.
+      </div>
+    </footer>
+  </body>
+</html>

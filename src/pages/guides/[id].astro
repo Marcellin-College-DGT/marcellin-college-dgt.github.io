@@ -1,0 +1,40 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { guides, yearSlug } from '../../lib/site';
+
+export async function getStaticPaths() {
+  return (await guides()).map((g) => ({ params: { id: g.id }, props: { g } }));
+}
+
+const { g } = Astro.props;
+const d = g.data;
+const { Content } = await render(g);
+---
+
+<Base title={d.title} description={`Use this when ${d.useWhen}`}>
+  <p class="crumbs"><a href="/">Home</a> › <a href="/guides/">How-to guides</a> › {d.tools[0]}</p>
+  <h1>{d.title}</h1>
+  {d.draft && <p class="draft-banner">Draft: this guide isn't on the live site yet.</p>}
+  <p class="lead">Use this when {d.useWhen}</p>
+  <p>
+    {d.tools.map((t) => <span class="tag">{t}</span>)}{' '}
+    {d.years.map((y) => <a class="tag" href={yearSlug(y)}>Year {y}</a>)}
+  </p>
+
+  {
+    d.pdf ? (
+      <>
+        <div class="btn-row">
+          <a class="btn primary" href={d.pdf} target="_blank" rel="noopener">Open the guide (PDF)</a>
+          <a class="btn" href={d.pdf} download>Download</a>
+        </div>
+        <iframe class="pdf-frame" src={d.pdf} title={d.title} loading="lazy" />
+      </>
+    ) : (
+      <p class="empty">The PDF for this guide is on the way.</p>
+    )
+  }
+
+  <Content />
+</Base>

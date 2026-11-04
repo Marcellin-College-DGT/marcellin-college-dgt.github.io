@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Search" noSearchIndex>
+  <p class="crumbs"><a href="/">Home</a> › Search</p>
+  <h1>Search</h1>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <div id="search"></div>
+  <noscript><p class="empty">Search needs JavaScript turned on.</p></noscript>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.PagefindUI) {
+        document.getElementById('search').innerHTML =
+          '<p class="empty">Search works on the published site (or after <code>npm run build</code>).</p>';
+        return;
+      }
+      const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false });
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) ui.triggerSearch(q);
+    });
+  </script>
+  <style is:global>
+    #search {
+      --pagefind-ui-primary: var(--accent);
+      --pagefind-ui-text: var(--ink);
+      --pagefind-ui-background: var(--page);
+      --pagefind-ui-border: var(--line);
+      --pagefind-ui-tag: var(--soft);
+      --pagefind-ui-border-radius: 8px;
+      --pagefind-ui-font: inherit;
+    }
+  </style>
+</Base>

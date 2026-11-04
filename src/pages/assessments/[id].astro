@@ -1,0 +1,76 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import GuideList from '../../components/GuideList.astro';
+import { assessments, guides, yearSlug } from '../../lib/site';
+
+export async function getStaticPaths() {
+  return (await assessments()).map((a) => ({ params: { id: a.id }, props: { a } }));
+}
+
+const { a } = Astro.props;
+const d = a.data;
+const { Content } = await render(a);
+const allGuides = await guides();
+const needed = d.guides.map((id) => allGuides.find((g) => g.id === id)).filter((g) => g !== undefined);
+const firstPdf = d.files.find((f) => f.path.endsWith('.pdf'));
+const hasHelp = (a.body ?? '').trim().length > 0;
+---
+
+<Base title={d.title} description={d.summary}>
+  <p class="crumbs"><a href="/">Home</a> › <a href={yearSlug(d.year)}>Year {d.year}</a> › Assessment</p>
+  <h1>{d.title}</h1>
+  {d.draft && <p class="draft-banner">Draft: this assessment isn't on the live site yet.</p>}
+  <p class="lead">{d.summary}</p>
+
+  <dl class="facts">
+    <dt>Year</dt><dd>{d.year}</dd>
+    {d.standards.length > 0 && (<><dt>Standard</dt><dd>{d.standards.map((s) => `AS${s}`).join(', ')}</dd></>)}
+    {d.term && (<><dt>Term</dt><dd>{d.term}</dd></>)}
+    {d.due && (<><dt>Due</dt><dd>{d.due}</dd></>)}
+    <dt>Hand in</dt><dd>{d.handIn}</dd>
+  </dl>
+
+  {
+    (d.template || d.files.length > 0 || d.slides) && (
+      <>
+        <h2>Your files</h2>
+        <div class="btn-row">
+          {d.template && (
+            <a class="btn primary" href={d.template} target="_blank" rel="noopener">
+              Make a copy of your template
+            </a>
+          )}
+          {d.files.map((f) => (
+            <a class="btn" href={f.path} target="_blank" rel="noopener">
+              {f.label} (PDF)
+            </a>
+          ))}
+          {d.slides && (
+            <a class="btn" href={d.slides} target="_blank" rel="noopener">
+              Evidence guide slides (PDF)
+            </a>
+          )}
+        </div>
+        {firstPdf && <iframe class="pdf-frame" src={firstPdf.path} title={firstPdf.label} loading="lazy" />}
+      </>
+    )
+  }
+
+  {
+    needed.length > 0 && (
+      <>
+        <h2>Guides you'll need</h2>
+        <GuideList items={needed} />
+      </>
+    )
+  }
+
+  {
+    hasHelp && (
+      <div class="help">
+        <Content />
+      </div>
+    )
+  }
+</Base>

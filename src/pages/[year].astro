@@ -1,0 +1,79 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import AssessmentList from '../components/AssessmentList.astro';
+import GuideList from '../components/GuideList.astro';
+import { YEARS, yearNote, overviews, assessments, guides } from '../lib/site';
+
+export function getStaticPaths() {
+  return YEARS.map((y) => ({ params: { year: `year-${y}` }, props: { y } }));
+}
+
+const { y } = Astro.props;
+const overview = (await overviews()).find((o) => o.data.year === y);
+const yearAssessments = (await assessments()).filter((a) => a.data.year === y);
+const yearGuides = (await guides()).filter((g) => g.data.years.includes(y));
+const { Content } = overview ? await render(overview) : { Content: null };
+const o = overview?.data;
+---
+
+<Base title={`Year ${y}`} description={o?.summary}>
+  <p class="crumbs"><a href="/">Home</a> › Year {y}</p>
+  <h1>Year {y} Digital Technologies</h1>
+  {o?.draft && <p class="draft-banner">Draft: this overview isn't on the live site yet.</p>}
+
+  {
+    o ? (
+      <>
+        <p class="lead">{o.summary}</p>
+
+        {o.units.length > 0 && (
+          <>
+            <h2>What you'll do</h2>
+            <ul class="cards">
+              {o.units.map((u) => (
+                <li>
+                  <div class="row">
+                    <span class="title">{u.name}</span>
+                    <span class={u.graded ? 'tag graded' : 'tag'}>{u.graded ? 'Graded' : 'Not graded'}</span>
+                  </div>
+                  <p>{u.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {o.canDo.length > 0 && (
+          <>
+            <h2>By the end, you can</h2>
+            <ul class="ticks">
+              {o.canDo.map((c) => (
+                <li>{c}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {o.tools.length > 0 && (
+          <>
+            <h2>Tools you'll use</h2>
+            <p>{o.tools.join(' · ')}</p>
+          </>
+        )}
+
+        {Content && <Content />}
+
+        <p class="crumbs">Curriculum: {o.curriculum}</p>
+      </>
+    ) : (
+      <p class="lead">{yearNote(y)}. The overview for this year is on the way.</p>
+    )
+  }
+
+  <h2>Assessments</h2>
+  <AssessmentList items={yearAssessments} />
+
+  <h2>Guides for Year {y}</h2>
+  <GuideList items={yearGuides} />
+</Base>

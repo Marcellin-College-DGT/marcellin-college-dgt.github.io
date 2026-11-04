@@ -1,0 +1,19 @@
+{
+  "name": "marcellin-college-dgt-site",
+  "version": "1.0.0",
+  "description": "DGT resources for Marcellin College akonga",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "node scripts/check-public.mjs",
+    "build": "node scripts/check-public.mjs && astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "preview:drafts": "SHOW_DRAFTS=1 astro build && pagefind --site dist && astro preview"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.5",
+    "astro": "^7.4.5",
+    "pagefind": "^1.6.0"
+  },
+  "private": true,
+  "type": "module"
+}

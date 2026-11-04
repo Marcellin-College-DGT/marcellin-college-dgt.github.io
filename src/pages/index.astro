@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { YEARS, yearSlug, yearNote } from '../lib/site';
+---
+
+<Base title="Home">
+  <h1>Digital Technologies</h1>
+  <p class="lead">Everything for DGT at Marcellin College: what you'll learn, your assessments and how-to guides.</p>
+
+  <h2>Pick your year</h2>
+  <ul class="years">
+    {
+      YEARS.map((y) => (
+        <li>
+          <a href={yearSlug(y)}>
+            <strong>Year {y}</strong>
+            <span>{yearNote(y)}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>How-to guides</h2>
+  <p>Step-by-step help for setting up and using VS Code, GitHub Desktop, Godot, Google Classroom and more.</p>
+  <p><a class="btn" href="/guides/">See all guides</a></p>
+
+  <h2>Search</h2>
+  <form class="search-box" action="/search/" method="get" role="search">
+    <input id="q" name="q" type="search" aria-label="Search the site" placeholder="Search, e.g. commit, HTML, Godot" />
+    <button class="btn primary" type="submit">Search</button>
+  </form>
+</Base>

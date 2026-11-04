@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  items: CollectionEntry<'assessments'>[];
+}
+const { items } = Astro.props;
+---
+
+{
+  items.length ? (
+    <ul class="cards" data-pagefind-ignore>
+      {items.map((a) => (
+        <li>
+          <div class="row">
+            <a class="title" href={`/assessments/${a.id}/`}>{a.data.title}</a>
+            {a.data.standards.map((s) => <span class="tag graded">AS{s}</span>)}
+            {a.data.term && <span class="tag">Term {a.data.term}</span>}
+            {a.data.draft && <span class="tag draft">Draft</span>}
+          </div>
+          <p>{a.data.summary}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty">Assessment details are on the way. Your kaiako will post them on Google Classroom too.</p>
+  )
+}
