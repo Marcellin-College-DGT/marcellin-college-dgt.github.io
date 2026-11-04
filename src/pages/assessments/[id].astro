@@ -31,10 +31,15 @@ const hasHelp = (a.body ?? '').trim().length > 0;
   </dl>
 
   {
-    (d.template || d.files.length > 0 || d.slides) && (
+    (d.template || d.links.length > 0 || d.files.length > 0 || d.slides) && (
       <>
         <h2>Your files</h2>
         <div class="btn-row">
+          {d.links.map((l) => (
+            <a class="btn primary" href={l.url} target="_blank" rel="noopener">
+              {l.label}
+            </a>
+          ))}
           {d.template && (
             <a class="btn primary" href={d.template} target="_blank" rel="noopener">
               Make a copy of your template

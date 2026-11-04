@@ -48,6 +48,8 @@ const assessments = defineCollection({
       handIn: z.string(),
       due: z.string().optional(),
       template: z.url().optional(),
+      // other links ākonga open, e.g. a MakeCode starter game
+      links: z.array(z.object({ label: z.string(), url: z.url() }).strict()).default([]),
       files: z.array(fileLink).default([]),
       slides: filePath.optional(),
       guides: z.array(z.string()).default([]),
