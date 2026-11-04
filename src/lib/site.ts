@@ -7,7 +7,19 @@ const visible = <T extends { data: { draft: boolean } }>(e: T) => showDrafts || 
 
 export const YEARS = [7, 8, 9, 10, 11, 12, 13] as const;
 
+// Year levels hidden from the site (no button, no page). Seniors are on exam leave;
+// take a year out of this list to bring its page back.
+export const HIDDEN_YEARS: number[] = [11, 12, 13];
+export const VISIBLE_YEARS = YEARS.filter((y) => !HIDDEN_YEARS.includes(y));
+
 export const yearSlug = (y: number) => `/year-${y}/`;
+
+/** "2026-11-13" -> "Friday 13 November" (the date as written, whatever the time zone). */
+export function dayLabel(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-NZ', {
+    weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC',
+  });
+}
 
 export function yearNote(y: number) {
   if (y <= 10) return 'Junior DGT';
@@ -21,6 +33,7 @@ export async function overviews() {
 export async function assessments() {
   return (await getCollection('assessments'))
     .filter(visible)
+    .filter((a) => !HIDDEN_YEARS.includes(a.data.year))
     .sort((a, b) => (a.data.term ?? 9) - (b.data.term ?? 9) || a.data.order - b.data.order);
 }
 
