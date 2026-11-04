@@ -95,10 +95,13 @@ const jumps = [
 
   {
     needed.length > 0 && (
-      <>
-        <h2 id="guides">Guides you'll need</h2>
+      <details class="guides-fold">
+        <summary>
+          <h2 id="guides">Guides you'll need</h2>
+          <span class="count">{needed.length} guides</span>
+        </summary>
         <GuideList items={needed} />
-      </>
+      </details>
     )
   }
 </Base>

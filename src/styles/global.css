@@ -436,3 +436,47 @@ ul.ticks li {
 h2[id] {
   scroll-margin-top: 16px;
 }
+
+/* "Guides you'll need": one fold-out, its heading always showing */
+.guides-fold {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0 16px;
+  margin: 28px 0 0;
+}
+
+.guides-fold summary {
+  cursor: pointer;
+  padding: 14px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  list-style: none;
+}
+
+.guides-fold summary::-webkit-details-marker {
+  display: none;
+}
+
+.guides-fold summary::before {
+  content: '▸';
+  font-size: 1.1rem;
+}
+
+.guides-fold[open] summary::before {
+  content: '▾';
+}
+
+.guides-fold summary h2 {
+  margin: 0;
+  font-size: 1.375rem;
+}
+
+.guides-fold .count {
+  color: var(--quiet);
+  font-size: 0.95rem;
+}
+
+.guides-fold[open] summary {
+  border-bottom: 1px solid var(--line);
+}
