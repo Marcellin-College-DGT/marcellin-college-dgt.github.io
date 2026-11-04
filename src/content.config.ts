@@ -46,7 +46,15 @@ const assessments = defineCollection({
       order: z.number().default(0),
       summary: z.string(),
       handIn: z.string(),
-      due: z.string().optional(),
+      due: z.string().optional(),     // shown on the page, in weeks ("End of Week 3"), so it fits any rotation
+      // this rotation's real due date (YYYY-MM-DD), used only by the Due soon list on Home and
+      // shown beside the week until it passes; change it for each new class
+      dueDate: z
+        .preprocess(
+          (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),   // YAML reads 2026-11-13 as a date
+          z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Write dueDate as YYYY-MM-DD'),
+        )
+        .optional(),
       template: z.url().optional(),
       // other links ākonga open, e.g. a MakeCode starter game
       links: z.array(z.object({ label: z.string(), url: z.url() }).strict()).default([]),

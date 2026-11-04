@@ -28,6 +28,12 @@ A file path in a page is written from `/files/…`, for example
 `draft: true` keeps a page off the live site. You can still see drafts while
 previewing (below). Set `draft: false` when it's ready.
 
+### Hiding a year level
+
+`HIDDEN_YEARS` in `src/lib/site.ts` lists year levels the site leaves out: no button,
+no page. Years 11–13 are hidden while seniors are on exam leave. Take a year out of the
+list to bring it back.
+
 ### Assessment pages
 
 ```yaml
@@ -37,7 +43,8 @@ standards: ["91896"]          # leave out for junior assessments
 term: 2
 summary: One sentence on what ākonga make.
 handIn: Commit to your GitHub repo and hand in the link on Google Classroom
-due: Friday, Week 9
+due: End of Week 9
+dueDate: 2027-06-25
 template: https://docs.google.com/document/d/<id>/copy   # the make-a-copy link
 files:
   - { label: Task instructions, path: /files/assessments/l2-91896-task.pdf }
@@ -46,6 +53,17 @@ slides: /files/slides/l2-91896-evidence.pdf
 guides: [godot-new-project, github-desktop-commit]   # guide file names, no .md
 draft: false
 ```
+
+**Dates.** The page says when work is due in weeks (`due: End of Week 3`), so it fits
+every rotation. `dueDate: 2026-11-13` is this class's real date: it puts the task in the
+**Due soon** list on Home (for the four weeks before it) and shows beside the week until
+the day passes. Change `dueDate` for each new class; leave it out if you don't want the
+task in Due soon.
+
+**Task PDFs live here.** The site's copy is the one ākonga use. In Google Classroom,
+link to the assessment page instead of attaching the PDF. To fix a task, replace the PDF
+in `public/files/assessments/` with a file of the same name and commit: every link keeps
+working.
 
 Under the front matter, a `## Help with your template` heading followed by
 `### Question 1: …`, `### Question 2: …` headings turns each question into a

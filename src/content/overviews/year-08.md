@@ -16,14 +16,11 @@ canDo:
 tools:
   - MakeCode Arcade
   - Google Sites
-  - Grok Academy
   - Google Classroom
 draft: false
 ---
 
 ## How Year 8 DGT works
-
-In class you'll work through Grok Academy courses to learn the skills first. Your Grok progress helps you learn, but it doesn't count towards your grade.
 
 Your game is graded at a curriculum level. For the collector game, **4P** is the expected standard, and the rubric in the task shows every grade.
 

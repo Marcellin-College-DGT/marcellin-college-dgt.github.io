@@ -1,11 +1,11 @@
 ---
 title: My Passion Page
 year: 9
-term: 4
 order: 1
 summary: Build a one-page website about something you love, written for one real reader who doesn't know much about it yet.
 handIn: Zip your my-page folder, then upload the zip and your template to Google Classroom and click Turn in
-due: Friday 13 November 2026
+due: End of Week 3
+dueDate: 2026-11-13
 files:
   - { label: Task and rubric, path: /files/assessments/9dgt-my-passion-page.pdf }
 guides:

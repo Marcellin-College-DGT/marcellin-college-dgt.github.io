@@ -1,11 +1,11 @@
 ---
 title: Collector Game for a Younger Whānau Member
 year: 8
-term: 4
 order: 1
 summary: Turn a starter collector game into a game for a younger child (about 5 to 10) in your whānau, then show it on a Google Site.
 handIn: Put your game and site links at the top of your template, then turn it in on Google Classroom
-due: Thursday 26 November 2026
+due: End of Week 4
+dueDate: 2026-11-26
 links:
   - { label: Open the starter game, url: "https://arcade.makecode.com/S60890-47146-48977-41276" }
 files:
@@ -20,9 +20,9 @@ draft: false
 
 ## Four weeks, four parts
 
-- **Week 1, Part 1: Plan.** Talk to your end-user, write their needs, plan your changes and write an algorithm for your own feature. Checkpoint 1: 5 November.
-- **Weeks 2–3, Part 2: Build.** Add your changes one part at a time, with a use for A, new outputs and loops. Checkpoint 2: 16 November.
-- **Week 3, Part 3: Test.** Test every control and the limits, then watch your end-user play. Checkpoint 3: 24 November.
+- **Week 1, Part 1: Plan.** Talk to your end-user, write their needs, plan your changes and write an algorithm for your own feature. Checkpoint 1 at the end of Week 1.
+- **Weeks 2–3, Part 2: Build.** Add your changes one part at a time, with a use for A, new outputs and loops. Checkpoint 2 at the end of Week 2.
+- **Week 3, Part 3: Test.** Test every control and the limits, then watch your end-user play. Checkpoint 3 at the end of Week 3.
 - **Week 4, Part 4: Showcase.** Make a three-page Google Site with your game on it.
 
 Open the starter game with the button above, play it, then click **Edit Code** to make your own copy. At each checkpoint, click **Share** in MakeCode and post the link privately on the Classroom task.
