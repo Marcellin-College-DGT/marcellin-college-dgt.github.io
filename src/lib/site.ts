@@ -14,11 +14,12 @@ export const VISIBLE_YEARS = YEARS.filter((y) => !HIDDEN_YEARS.includes(y));
 
 export const yearSlug = (y: number) => `/year-${y}/`;
 
-/** "2026-11-13" -> "Friday 13 November" (the date as written, whatever the time zone). */
+/** "2026-11-13" -> "Friday 13 November", no comma, as the task PDFs write it
+ *  (the date as written, whatever the time zone). */
 export function dayLabel(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-NZ', {
-    weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC',
-  });
+  const d = new Date(`${iso}T00:00:00Z`);
+  const part = (o: Intl.DateTimeFormatOptions) => d.toLocaleDateString('en-NZ', { ...o, timeZone: 'UTC' });
+  return `${part({ weekday: 'long' })} ${part({ day: 'numeric' })} ${part({ month: 'long' })}`;
 }
 
 export function yearNote(y: number) {

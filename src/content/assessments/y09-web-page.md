@@ -3,7 +3,7 @@ title: My Passion Page
 year: 9
 order: 1
 summary: Build a one-page website about something you love, written for one real reader who doesn't know much about it yet.
-handIn: Zip your my-page folder, then upload the zip and your template to Google Classroom and click Turn in
+handIn: Zip your my-page folder, upload the zip to Google Classroom, then click Turn in. Your template is already attached
 due: End of Week 3
 dueDate: 2026-11-13
 files:
@@ -21,8 +21,8 @@ draft: false
 
 ## Three weeks, three parts
 
-- **Week 1, Part 1: Plan.** Choose your topic and reader, write your words, choose your pictures and colours, and draw your wireframe. Show your kaiako at Checkpoint 1.
-- **Week 2, Part 2: Build.** Make `index.html` and `style.css` in VS Code and preview them with Live Server. Show your kaiako at Checkpoint 2.
+- **Week 1, Part 1: Plan.** Choose your topic and reader, write your words, choose your pictures and colours, and draw your wireframe. Checkpoint 1 at the end of Week 1.
+- **Week 2, Part 2: Build.** Make `index.html` and `style.css` in VS Code and preview them with Live Server: click **Go Live**, or right-click `index.html` › **Open with Live Server** (they do the same thing). Checkpoint 2 at the end of Week 2.
 - **Week 3, Part 3: Test, get feedback and improve.** Test your page, swap feedback in the gallery walk and make changes.
 
 **Keep it private.** Don't put your full name, address, phone number or school on your page. Don't use photos that show people's faces or where you live.
