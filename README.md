@@ -44,7 +44,6 @@ term: 2
 summary: One sentence on what ākonga make.
 handIn: Commit to your GitHub repo and hand in the link on Google Classroom
 due: End of Week 9
-dueDate: 2027-06-25
 template: https://docs.google.com/document/d/<id>/copy   # the make-a-copy link
 files:
   - { label: Task instructions, path: /files/assessments/l2-91896-task.pdf }
@@ -54,11 +53,9 @@ guides: [godot-new-project, github-desktop-commit]   # guide file names, no .md
 draft: false
 ```
 
-**Dates.** The page says when work is due in weeks (`due: End of Week 3`), so it fits
-every rotation. `dueDate: 2026-11-13` is this class's real date: it puts the task in the
-**Due soon** list on Home (for the four weeks before it) and shows beside the week until
-the day passes. Change `dueDate` for each new class; leave it out if you don't want the
-task in Due soon.
+**No dates.** The site never shows a calendar date, so it stays right for every class.
+Say when work is due in weeks (`due: End of Week 3`) and keep real dates in Google
+Classroom.
 
 **Task PDFs live here.** The site's copy is the one ākonga use. In Google Classroom,
 link to the assessment page instead of attaching the PDF. To fix a task, replace the PDF

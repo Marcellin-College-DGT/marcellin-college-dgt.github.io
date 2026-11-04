@@ -5,7 +5,6 @@ order: 1
 summary: Turn a starter collector game into a game for a younger child (about 5 to 10) in your whānau, then show it on a Google Site.
 handIn: Put your game and site links at the top of your template, then turn it in on Google Classroom
 due: End of Week 4
-dueDate: 2026-11-26
 links:
   - { label: Open the starter game, url: "https://arcade.makecode.com/S60890-47146-48977-41276" }
 files:

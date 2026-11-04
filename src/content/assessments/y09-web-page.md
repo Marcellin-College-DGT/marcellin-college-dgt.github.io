@@ -5,7 +5,6 @@ order: 1
 summary: Build a one-page website about something you love, written for one real reader who doesn't know much about it yet.
 handIn: Zip your my-page folder, upload the zip to Google Classroom, then click Turn in. Your template is already attached
 due: End of Week 3
-dueDate: 2026-11-13
 files:
   - { label: Task and rubric, path: /files/assessments/9dgt-my-passion-page.pdf }
 guides:
