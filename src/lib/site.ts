@@ -30,11 +30,23 @@ export async function guides() {
     .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
+// Groups on the How-to guides page, in this order; any other group follows, A to Z.
+const GROUP_ORDER = [
+  'Google Drive and Classroom',
+  'VS Code and web pages',
+  'Git and GitHub',
+  'Godot',
+  'MakeCode Arcade',
+  'Grok Academy',
+  'Set up your own computer',
+];
+
 export function guidesByTool(list: CollectionEntry<'guides'>[]) {
   const map = new Map<string, CollectionEntry<'guides'>[]>();
   for (const g of list) {
-    const tool = g.data.tools[0];
-    map.set(tool, [...(map.get(tool) ?? []), g]);
+    const group = g.data.group ?? g.data.tools[0];
+    map.set(group, [...(map.get(group) ?? []), g]);
   }
-  return [...map.entries()].sort(([a], [b]) => a.localeCompare(b));
+  const rank = (s: string) => (GROUP_ORDER.includes(s) ? GROUP_ORDER.indexOf(s) : GROUP_ORDER.length);
+  return [...map.entries()].sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b));
 }

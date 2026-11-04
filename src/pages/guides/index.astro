@@ -10,12 +10,15 @@ const groups = guidesByTool(await guides());
   <p class="crumbs"><a href="/">Home</a> › How-to guides</p>
   <h1>How-to guides</h1>
   <p class="lead">Each guide does one job. Find the tool you're using, then the job you need to do.</p>
+  {groups.length > 1 && (
+    <p>{groups.map(([group], i) => (<>{i > 0 && ' · '}<a href={`#${group.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group}</a></>))}</p>
+  )}
 
   {
     groups.length ? (
       groups.map(([tool, items]) => (
         <>
-          <h2>{tool}</h2>
+          <h2 id={tool.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>{tool}</h2>
           <GuideList items={items} />
         </>
       ))

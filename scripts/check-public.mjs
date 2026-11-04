@@ -32,7 +32,8 @@ for (const file of walk(join(root, 'src/content'))) {
   const text = readFileSync(file, 'utf8');
   const front = text.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
   if (/^draft:\s*true\s*$/m.test(front)) continue;
-  for (const [, path] of text.matchAll(/(\/files\/[^\s"'`)\],}]+)/g)) {
+  // File names may contain spaces (e.g. "/files/guides/Start a web page.pdf"), so match up to the extension.
+  for (const [, path] of text.matchAll(/(\/files\/[^"'`\n\]),}]+?\.(?:pdf|png|jpe?g|gif|zip|docx|pptx|mp4))/gi)) {
     if (!existsSync(join(root, 'public', path))) {
       problems.push(`${relative(root, file)} links to ${path}, but that file isn't in public${path}.`);
     }

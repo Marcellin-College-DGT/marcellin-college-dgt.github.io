@@ -26,10 +26,10 @@ const { Content } = await render(g);
     d.pdf ? (
       <>
         <div class="btn-row">
-          <a class="btn primary" href={d.pdf} target="_blank" rel="noopener">Open the guide (PDF)</a>
-          <a class="btn" href={d.pdf} download>Download</a>
+          <a class="btn primary" href={encodeURI(d.pdf)} target="_blank" rel="noopener">Open the guide (PDF)</a>
+          <a class="btn" href={encodeURI(d.pdf)} download>Download</a>
         </div>
-        <iframe class="pdf-frame" src={d.pdf} title={d.title} loading="lazy" />
+        <iframe class="pdf-frame" src={encodeURI(d.pdf)} title={d.title} loading="lazy" />
       </>
     ) : (
       <p class="empty">The PDF for this guide is on the way.</p>

@@ -13,7 +13,6 @@ const d = a.data;
 const { Content } = await render(a);
 const allGuides = await guides();
 const needed = d.guides.map((id) => allGuides.find((g) => g.id === id)).filter((g) => g !== undefined);
-const firstPdf = d.files.find((f) => f.path.endsWith('.pdf'));
 const hasHelp = (a.body ?? '').trim().length > 0;
 ---
 
@@ -42,17 +41,16 @@ const hasHelp = (a.body ?? '').trim().length > 0;
             </a>
           )}
           {d.files.map((f) => (
-            <a class="btn" href={f.path} target="_blank" rel="noopener">
+            <a class="btn" href={encodeURI(f.path)} target="_blank" rel="noopener">
               {f.label} (PDF)
             </a>
           ))}
           {d.slides && (
-            <a class="btn" href={d.slides} target="_blank" rel="noopener">
+            <a class="btn" href={encodeURI(d.slides)} target="_blank" rel="noopener">
               Evidence guide slides (PDF)
             </a>
           )}
         </div>
-        {firstPdf && <iframe class="pdf-frame" src={firstPdf.path} title={firstPdf.label} loading="lazy" />}
       </>
     )
   }

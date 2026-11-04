@@ -62,6 +62,7 @@ const guides = defineCollection({
     .object({
       title: z.string(),
       useWhen: z.string(),
+      group: z.string().optional(),   // the heading it's listed under; defaults to its first tool
       tools: z.array(z.string()).min(1),
       years: z.array(year).min(1),
       pdf: filePath.optional(),
