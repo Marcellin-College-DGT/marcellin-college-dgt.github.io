@@ -2,8 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import AssessmentList from '../components/AssessmentList.astro';
-import GuideList from '../components/GuideList.astro';
-import { VISIBLE_YEARS, yearNote, overviews, assessments, guides } from '../lib/site';
+import { VISIBLE_YEARS, yearNote, overviews, assessments } from '../lib/site';
 
 export function getStaticPaths() {
   return VISIBLE_YEARS.map((y) => ({ params: { year: `year-${y}` }, props: { y } }));
@@ -12,7 +11,6 @@ export function getStaticPaths() {
 const { y } = Astro.props;
 const overview = (await overviews()).find((o) => o.data.year === y);
 const yearAssessments = (await assessments()).filter((a) => a.data.year === y);
-const yearGuides = (await guides()).filter((g) => g.data.years.includes(y));
 const { Content } = overview ? await render(overview) : { Content: null };
 const o = overview?.data;
 
@@ -97,6 +95,5 @@ const items = [
     )
   }
 
-  <h2>Guides for Year {y}</h2>
-  <GuideList items={yearGuides} />
+  <p class="guides-link">Stuck on a tool? See all <a href="/guides/">How-to guides</a>.</p>
 </Base>
