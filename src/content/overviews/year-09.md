@@ -24,6 +24,4 @@ draft: false
 
 ## How Year 9 DGT works
 
-Your work is graded at a curriculum level. For My Passion Page, **4A** is the expected standard, and the rubric in the task shows every grade.
-
 Fill in your evidence template as you go, and hand everything in on Google Classroom.

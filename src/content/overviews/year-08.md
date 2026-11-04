@@ -22,6 +22,4 @@ draft: false
 
 ## How Year 8 DGT works
 
-Your game is graded at a curriculum level. For the collector game, **4P** is the expected standard, and the rubric in the task shows every grade.
-
 Sign in to MakeCode Arcade with your school account so your game saves. Fill in your evidence template as you go, and hand everything in on Google Classroom.

@@ -15,6 +15,21 @@ const yearAssessments = (await assessments()).filter((a) => a.data.year === y);
 const yearGuides = (await guides()).filter((g) => g.data.years.includes(y));
 const { Content } = overview ? await render(overview) : { Content: null };
 const o = overview?.data;
+
+// One list of what ākonga do this year. A unit whose name matches an assessment's title links
+// to that assessment's page; any assessment no unit names is added at the end.
+const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+const items = [
+  ...(o?.units ?? []).map((u) => ({
+    name: u.name,
+    graded: u.graded,
+    summary: u.summary,
+    task: yearAssessments.find((a) => same(a.data.title, u.name)),
+  })),
+  ...yearAssessments
+    .filter((a) => !(o?.units ?? []).some((u) => same(u.name, a.data.title)))
+    .map((a) => ({ name: a.data.title, graded: true, summary: a.data.summary, task: a })),
+];
 ---
 
 <Base title={`Year ${y}`} description={o?.summary}>
@@ -27,21 +42,26 @@ const o = overview?.data;
       <>
         <p class="lead">{o.summary}</p>
 
-        {o.units.length > 0 && (
-          <>
-            <h2>What you'll do</h2>
-            <ul class="cards">
-              {o.units.map((u) => (
-                <li>
-                  <div class="row">
-                    <span class="title">{u.name}</span>
-                    <span class={u.graded ? 'tag graded' : 'tag'}>{u.graded ? 'Graded' : 'Not graded'}</span>
-                  </div>
-                  <p>{u.summary}</p>
-                </li>
-              ))}
-            </ul>
-          </>
+        <h2>What you'll do</h2>
+        {items.length > 0 ? (
+          <ul class="cards" data-pagefind-ignore>
+            {items.map((it) => (
+              <li>
+                <div class="row">
+                  {it.task ? (
+                    <a class="title" href={`/assessments/${it.task.id}/`}>{it.name}</a>
+                  ) : (
+                    <span class="title">{it.name}</span>
+                  )}
+                  <span class={it.graded ? 'tag graded' : 'tag'}>{it.graded ? 'Graded' : 'Not graded'}</span>
+                  {it.task?.data.draft && <span class="tag draft">Draft</span>}
+                </div>
+                <p>{it.summary}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="empty">Details are on the way.</p>
         )}
 
         {o.canDo.length > 0 && (
@@ -63,16 +83,19 @@ const o = overview?.data;
         )}
 
         {Content && <Content />}
-
-        <p class="crumbs">Curriculum: {o.curriculum}</p>
       </>
     ) : (
-      <p class="lead">{yearNote(y)}. The overview for this year is on the way.</p>
+      <>
+        <p class="lead">{yearNote(y)}. The overview for this year is on the way.</p>
+        {yearAssessments.length > 0 && (
+          <>
+            <h2>What you'll do</h2>
+            <AssessmentList items={yearAssessments} />
+          </>
+        )}
+      </>
     )
   }
-
-  <h2>Assessments</h2>
-  <AssessmentList items={yearAssessments} />
 
   <h2>Guides for Year {y}</h2>
   <GuideList items={yearGuides} />
