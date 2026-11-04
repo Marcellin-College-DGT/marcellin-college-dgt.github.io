@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import GuideList from '../../components/GuideList.astro';
-import { assessments, guides, yearSlug } from '../../lib/site';
+import { assessments, guides, yearSlug, dayLabel } from '../../lib/site';
 
 export async function getStaticPaths() {
   return (await assessments()).map((a) => ({ params: { id: a.id }, props: { a } }));
@@ -26,7 +26,17 @@ const hasHelp = (a.body ?? '').trim().length > 0;
     <dt>Year</dt><dd>{d.year}</dd>
     {d.standards.length > 0 && (<><dt>Standard</dt><dd>{d.standards.map((s) => `AS${s}`).join(', ')}</dd></>)}
     {d.term && (<><dt>Term</dt><dd>{d.term}</dd></>)}
-    {d.due && (<><dt>Due</dt><dd>{d.due}</dd></>)}
+    {(d.due || d.dueDate) && (
+      <>
+        <dt>Due</dt>
+        <dd>
+          {d.due}
+          {d.dueDate && (
+            <span data-due-date={d.dueDate} hidden>{d.due ? ` (${dayLabel(d.dueDate)})` : dayLabel(d.dueDate)}</span>
+          )}
+        </dd>
+      </>
+    )}
     <dt>Hand in</dt><dd>{d.handIn}</dd>
   </dl>
 
@@ -76,4 +86,11 @@ const hasHelp = (a.body ?? '').trim().length > 0;
       </div>
     )
   }
+
+  <script is:inline>
+    // Show this rotation's real date beside the week, only until the end of that day.
+    for (const el of document.querySelectorAll('[data-due-date]')) {
+      el.hidden = new Date(el.dataset.dueDate + 'T23:59:59').getTime() < Date.now();
+    }
+  </script>
 </Base>

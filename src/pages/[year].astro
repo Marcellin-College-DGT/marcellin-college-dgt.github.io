@@ -3,10 +3,10 @@ import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import AssessmentList from '../components/AssessmentList.astro';
 import GuideList from '../components/GuideList.astro';
-import { YEARS, yearNote, overviews, assessments, guides } from '../lib/site';
+import { VISIBLE_YEARS, yearNote, overviews, assessments, guides } from '../lib/site';
 
 export function getStaticPaths() {
-  return YEARS.map((y) => ({ params: { year: `year-${y}` }, props: { y } }));
+  return VISIBLE_YEARS.map((y) => ({ params: { year: `year-${y}` }, props: { y } }));
 }
 
 const { y } = Astro.props;

@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { guides, yearSlug } from '../../lib/site';
+import { guides, yearSlug, HIDDEN_YEARS } from '../../lib/site';
 
 export async function getStaticPaths() {
   return (await guides()).map((g) => ({ params: { id: g.id }, props: { g } }));
@@ -19,7 +19,7 @@ const { Content } = await render(g);
   <p class="lead">Use this when {d.useWhen}</p>
   <p>
     {d.tools.map((t) => <span class="tag">{t}</span>)}{' '}
-    {d.years.map((y) => <a class="tag" href={yearSlug(y)}>Year {y}</a>)}
+    {d.years.filter((y) => !HIDDEN_YEARS.includes(y)).map((y) => <a class="tag" href={yearSlug(y)}>Year {y}</a>)}
   </p>
 
   {

@@ -1,16 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import { YEARS, yearSlug, yearNote } from '../lib/site';
+import { VISIBLE_YEARS, yearSlug, yearNote, assessments, dayLabel } from '../lib/site';
+
+// Every assessment with a real due date. The script below shows only the ones due in the
+// next four weeks, using the viewer's clock, so a passed date drops off without a rebuild.
+const dated = (await assessments())
+  .filter((a) => a.data.dueDate)
+  .sort((a, b) => a.data.dueDate!.localeCompare(b.data.dueDate!));
 ---
 
 <Base title="Home">
   <h1>Digital Technologies</h1>
   <p class="lead">Everything for DGT at Marcellin College: what you'll learn, your assessments and how-to guides.</p>
 
+  {
+    dated.length > 0 && (
+      <section class="due-soon" aria-labelledby="due-soon">
+        <h2 id="due-soon">Due soon</h2>
+        <ul class="cards" data-pagefind-ignore>
+          {dated.map((a) => (
+            <li data-due={a.data.dueDate}>
+              <div class="row">
+                <a class="title" href={`/assessments/${a.id}/`}>{a.data.title}</a>
+                <span class="tag">Year {a.data.year}</span>
+              </div>
+              <p>Due {dayLabel(a.data.dueDate!)}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="empty" data-due-empty hidden>Nothing is due in the next four weeks.</p>
+      </section>
+    )
+  }
+
   <h2>Pick your year</h2>
   <ul class="years">
     {
-      YEARS.map((y) => (
+      VISIBLE_YEARS.map((y) => (
         <li>
           <a href={yearSlug(y)}>
             <strong>Year {y}</strong>
@@ -30,4 +56,21 @@ import { YEARS, yearSlug, yearNote } from '../lib/site';
     <input id="q" name="q" type="search" aria-label="Search the site" placeholder="Search, e.g. commit, HTML, Godot" />
     <button class="btn primary" type="submit">Search</button>
   </form>
+
+  <script is:inline>
+    (() => {
+      const items = document.querySelectorAll('.due-soon li[data-due]');
+      if (!items.length) return;
+      const now = Date.now(), soon = 28 * 864e5;
+      let shown = 0;
+      for (const li of items) {
+        // due at the end of that day, in the viewer's own time zone (NZ for ākonga)
+        const end = new Date(li.dataset.due + 'T23:59:59').getTime();
+        const show = end >= now && end - now <= soon;
+        li.hidden = !show;
+        if (show) shown++;
+      }
+      if (!shown) document.querySelector('[data-due-empty]').hidden = false;
+    })();
+  </script>
 </Base>
