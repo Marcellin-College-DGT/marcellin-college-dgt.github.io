@@ -10,10 +10,21 @@ export async function getStaticPaths() {
 
 const { a } = Astro.props;
 const d = a.data;
-const { Content } = await render(a);
+const { Content, headings } = await render(a);
 const allGuides = await guides();
 const needed = d.guides.map((id) => allGuides.find((g) => g.id === id)).filter((g) => g !== undefined);
 const hasHelp = (a.body ?? '').trim().length > 0;
+
+// "Jump to" links: the page's own sections, in order, with short names.
+// The first section is the plan; "Help with your template" is the template help; guides come last.
+const sections = headings.filter((h) => h.depth === 2);
+const jumps = [
+  ...sections.map((h, i) => ({
+    slug: h.slug,
+    label: /^help with/i.test(h.text) ? 'Template help' : i === 0 ? 'Plan' : h.text,
+  })),
+  ...(needed.length ? [{ slug: 'guides', label: 'Guides' }] : []),
+];
 ---
 
 <Base title={d.title} description={d.summary}>
@@ -71,11 +82,16 @@ const hasHelp = (a.body ?? '').trim().length > 0;
   }
 
   {
-    needed.length > 0 && (
-      <>
-        <h2>Guides you'll need</h2>
-        <GuideList items={needed} />
-      </>
+    jumps.length > 1 && (
+      <p class="jump" data-pagefind-ignore>
+        Jump to:{' '}
+        {jumps.map((j, i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={`#${j.slug}`}>{j.label}</a>
+          </>
+        ))}
+      </p>
     )
   }
 
@@ -84,6 +100,15 @@ const hasHelp = (a.body ?? '').trim().length > 0;
       <div class="help">
         <Content />
       </div>
+    )
+  }
+
+  {
+    needed.length > 0 && (
+      <>
+        <h2 id="guides">Guides you'll need</h2>
+        <GuideList items={needed} />
+      </>
     )
   }
 

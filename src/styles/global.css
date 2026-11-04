@@ -420,3 +420,19 @@ ul.ticks li {
   background: var(--page);
   color: var(--ink);
 }
+
+/* "Jump to" links under the file buttons on an assessment page */
+.jump {
+  font-size: 0.95rem;
+  color: var(--quiet);
+  margin: -4px 0 8px;
+}
+
+.jump a {
+  font-weight: 600;
+}
+
+/* Jumping to a section leaves a little room above its heading */
+h2[id] {
+  scroll-margin-top: 16px;
+}
