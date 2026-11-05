@@ -2,7 +2,8 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import GuideList from '../../components/GuideList.astro';
-import { assessments, guides, yearSlug } from '../../lib/site';
+import LearnList from '../../components/LearnList.astro';
+import { assessments, guides, learnPages, yearSlug } from '../../lib/site';
 
 export async function getStaticPaths() {
   return (await assessments()).map((a) => ({ params: { id: a.id }, props: { a } }));
@@ -13,16 +14,19 @@ const d = a.data;
 const { Content, headings } = await render(a);
 const allGuides = await guides();
 const needed = d.guides.map((id) => allGuides.find((g) => g.id === id)).filter((g) => g !== undefined);
+const allLearn = await learnPages();
+const reminders = d.learn.map((id) => allLearn.find((l) => l.id === id)).filter((l) => l !== undefined);
 const hasHelp = (a.body ?? '').trim().length > 0;
 
 // "Jump to" links: the page's own sections, in order, with short names.
-// The first section is the plan; "Help with your template" is the template help; guides come last.
+// The first section is the plan; "Help with your template" is the template help; reminders and guides come last.
 const sections = headings.filter((h) => h.depth === 2);
 const jumps = [
   ...sections.map((h, i) => ({
     slug: h.slug,
     label: /^help with/i.test(h.text) ? 'Template help' : /^example/i.test(h.text) ? 'Example' : i === 0 ? 'Plan' : h.text,
   })),
+  ...(reminders.length ? [{ slug: 'reminders', label: 'Reminders' }] : []),
   ...(needed.length ? [{ slug: 'guides', label: 'Guides' }] : []),
 ];
 ---
@@ -90,6 +94,18 @@ const jumps = [
       <div class="help">
         <Content />
       </div>
+    )
+  }
+
+  {
+    reminders.length > 0 && (
+      <details class="guides-fold">
+        <summary>
+          <h2 id="reminders">Need a reminder?</h2>
+          <span class="count">{reminders.length} Learn pages</span>
+        </summary>
+        <LearnList items={reminders} />
+      </details>
     )
   }
 

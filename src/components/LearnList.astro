@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  items: CollectionEntry<'learn'>[];
+  empty?: string;
+}
+const { items, empty = 'Learn pages are on the way.' } = Astro.props;
+---
+
+{
+  items.length ? (
+    <ul class="cards" data-pagefind-ignore>
+      {items.map((l) => (
+        <li>
+          <div class="row">
+            <a class="title" href={`/learn/${l.id}/`}>{l.data.title}</a>
+            {l.data.draft && <span class="tag draft">Draft</span>}
+          </div>
+          <p>Use this when {l.data.useWhen}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty">{empty}</p>
+  )
+}

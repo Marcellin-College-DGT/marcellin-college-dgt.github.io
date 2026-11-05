@@ -77,6 +77,30 @@ pdf: /files/guides/github-desktop-commit.pdf
 draft: false
 ```
 
+### Learn pages
+
+Short reference pages on the content (HTML, CSS…) live in `src/content/learn/`, one file
+per page, with `title`, `useWhen`, `years` and `order` at the top. Each `## Heading` is a
+topic and appears in the page's "On this page" list. List an assessment's Learn pages under
+`learn:` in its file to show them in its **Need a reminder?** fold-out.
+
+End each topic with a quiz. It needs no script: ākonga pick an answer and see whether it's
+right, and why. Nothing is recorded.
+
+````
+```quiz
+Which tag has no closing tag?
+- `<p>`
++ `<img>`
+- `<li>`
+> `<img>` stands on its own. `<p>` and `<li>` need a closing tag.
+```
+````
+
+The first line is the question, `+` is the one right answer, `-` is a wrong answer and `>`
+is the reason shown after they pick. Leave a blank line between questions. A question with
+no `+`, or more than one, stops the build and says which.
+
 ## Safety checks
 
 `scripts/check-public.mjs` runs before every build and stops it if:

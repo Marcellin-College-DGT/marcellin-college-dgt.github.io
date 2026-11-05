@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import LearnList from '../../components/LearnList.astro';
+import { VISIBLE_YEARS, learnPages } from '../../lib/site';
+
+const all = await learnPages();
+const groups = VISIBLE_YEARS.map((y) => ({ y, items: all.filter((l) => l.data.years.includes(y)) })).filter(
+  (g) => g.items.length > 0,
+);
+---
+
+<Base title="Learn" description="Quick reminders of how to do things in DGT: HTML, CSS and more.">
+  <p class="crumbs"><a href="/">Home</a> › Learn</p>
+  <h1>Learn</h1>
+  <p class="lead">Quick reminders for when you forget how to do something. Each page covers one thing, with an example and the mistakes people often make.</p>
+
+  {
+    groups.length ? (
+      groups.map(({ y, items }) => (
+        <>
+          <h2 id={`year-${y}`}>Year {y}</h2>
+          <LearnList items={items} />
+        </>
+      ))
+    ) : (
+      <p class="empty">Learn pages are on the way.</p>
+    )
+  }
+
+  <p class="guides-link">Stuck on a tool, like VS Code or Google Classroom? See <a href="/guides/">How-to guides</a>.</p>
+</Base>

@@ -53,6 +53,7 @@ const assessments = defineCollection({
       files: z.array(fileLink).default([]),
       slides: filePath.optional(),
       guides: z.array(z.string()).default([]),
+      learn: z.array(z.string()).default([]),   // Learn page file names (no .md) for "Need a reminder?"
       draft: z.boolean().default(false),
     })
     .strict(),
@@ -74,4 +75,19 @@ const guides = defineCollection({
     .strict(),
 });
 
-export const collections = { overviews, assessments, guides };
+// Learn: short reference pages on the content (HTML tags, CSS, loops…), for when ākonga
+// forget how to do something. Tool how-tos stay in the guides.
+const learn = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/learn' }),
+  schema: z
+    .object({
+      title: z.string(),
+      useWhen: z.string(),
+      years: z.array(year).min(1),
+      order: z.number().default(0),
+      draft: z.boolean().default(false),
+    })
+    .strict(),
+});
+
+export const collections = { overviews, assessments, guides, learn };

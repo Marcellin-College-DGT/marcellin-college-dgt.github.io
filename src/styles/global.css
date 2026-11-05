@@ -10,6 +10,10 @@
   --accent-soft: #e8eef7;
   --draft: #8a5a00;
   --draft-soft: #fdf3dc;
+  --good: #1a7f37;
+  --good-soft: #e7f5ec;
+  --bad: #b42318;
+  --bad-soft: #fdecea;
   --radius: 8px;
   --mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', Consolas, 'Liberation Mono', monospace;
   color-scheme: light dark;
@@ -27,6 +31,10 @@
     --accent-soft: #1b2638;
     --draft: #f0c46a;
     --draft-soft: #2e2512;
+    --good: #5cc98a;
+    --good-soft: #13281c;
+    --bad: #f08a80;
+    --bad-soft: #2f1614;
   }
 }
 
@@ -520,4 +528,288 @@ h2[id] {
 
 .rules p:last-child {
   margin-bottom: 0;
+}
+
+/* Learn pages: code examples, tables and "Common mistakes" */
+.learn pre {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 8px 0 18px;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.learn pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+.learn table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8px 0 18px;
+  font-size: 0.97rem;
+}
+
+.learn th,
+.learn td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.learn th {
+  background: var(--soft);
+}
+
+.learn blockquote {
+  margin: 8px 0 18px;
+  padding: 10px 14px;
+  background: var(--soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.learn blockquote p {
+  margin: 0;
+}
+
+.learn h2 {
+  font-size: 1.2rem;
+  margin-top: 1.4em;
+}
+
+@media (max-width: 480px) {
+  .learn table {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Code examples: Shiki gives light colours by default and dark ones in dark mode */
+@media (prefers-color-scheme: dark) {
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+/* A file name above a code example ("index.html", "style.css") */
+.file-label {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--quiet);
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 4px 12px;
+  margin-top: 12px;
+}
+
+.learn .file-label + pre {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* "What you see": how the code above looks on a page */
+.preview {
+  border: 1px dashed var(--quiet);
+  border-radius: var(--radius);
+  padding: 10px 16px 6px;
+  margin: 0 0 18px;
+}
+
+.preview-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--quiet);
+  margin: 0 0 4px;
+}
+
+.pv-h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 4px 0 6px;
+}
+
+.pv-h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 10px 0 4px;
+}
+
+/* Steps: app › screen in small capitals, then the action */
+.where {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.learn ol > li {
+  margin-bottom: 8px;
+}
+
+/* Margin and padding picture */
+.box-margin {
+  border: 1.5px dashed var(--quiet);
+  padding: 8px 12px 12px;
+  max-width: 420px;
+  margin: 8px 0 14px;
+  font-size: 0.9rem;
+}
+
+.box-padding {
+  border: 2px solid var(--ink);
+  background: var(--soft);
+  padding: 8px 12px 12px;
+  margin-top: 6px;
+}
+
+.box-content {
+  border: 1px solid var(--line);
+  background: var(--page);
+  text-align: center;
+  font-weight: 700;
+  padding: 6px;
+  margin-top: 6px;
+}
+
+/* On this page, and previous/next */
+.on-page {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 16px 6px;
+  margin: 8px 0 20px;
+}
+
+.on-page-title {
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.on-page ol {
+  margin: 0 0 6px;
+  padding-left: 1.4em;
+  columns: 2;
+  column-gap: 24px;
+}
+
+@media (max-width: 560px) {
+  .on-page ol {
+    columns: 1;
+  }
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 28px 0 0;
+}
+
+/* Check yourself: no script. Picking an answer shows Correct or Not quite, and why. */
+.quiz {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  padding: 12px 16px 14px;
+  margin: 18px 0 30px;
+}
+
+.quiz-title {
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.quiz .q {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.quiz .q + .q {
+  border-top: 1px dashed var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.quiz legend {
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--page);
+  cursor: pointer;
+}
+
+.opt input {
+  margin-top: 6px;
+  flex: none;
+}
+
+.opt:hover {
+  border-color: var(--quiet);
+}
+
+.opt.right:has(input:checked) {
+  border-color: var(--good);
+  background: var(--good-soft);
+}
+
+.opt.wrong:has(input:checked) {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+}
+
+.opt:has(input:checked)::after {
+  margin-left: auto;
+  padding-left: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.opt.right:has(input:checked)::after {
+  content: '✓ Correct';
+  color: var(--good);
+}
+
+.opt.wrong:has(input:checked)::after {
+  content: '✗ Not quite';
+  color: var(--bad);
+}
+
+.quiz .why {
+  display: none;
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  border-left: 4px solid var(--accent);
+  background: var(--page);
+}
+
+.quiz .q:has(input:checked) .why {
+  display: block;
 }

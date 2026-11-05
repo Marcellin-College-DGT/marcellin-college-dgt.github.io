@@ -15,6 +15,12 @@ guides:
   - save-a-version-as-a-zip
   - open-and-hand-in-your-evidence-template
   - hand-in-on-google-classroom
+learn:
+  - y09-start-here
+  - y09-tools-and-files
+  - y09-html
+  - y09-css
+  - y09-fixing-and-testing
 draft: false
 ---
 

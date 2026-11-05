@@ -34,6 +34,7 @@ const here = (prefix: string) => (path.startsWith(prefix) ? 'page' : undefined);
         </a>
         <nav class="site-nav" aria-label="Main">
           <a href="/" aria-current={path === '/' ? 'page' : undefined}>Years</a>
+          <a href="/learn/" aria-current={here('/learn/')}>Learn</a>
           <a href="/guides/" aria-current={here('/guides/')}>How-to guides</a>
           <a href="/search/" aria-current={here('/search/')}>Search</a>
         </nav>

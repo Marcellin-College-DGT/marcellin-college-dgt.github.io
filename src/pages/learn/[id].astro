@@ -1,0 +1,63 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { learnPages, assessments, HIDDEN_YEARS } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const all = await learnPages();
+  return all.map((l) => {
+    // Previous and next page for the same year, in order, so ākonga can read through like a booklet
+    const sameYear = all.filter((o) => o.data.years.some((y) => l.data.years.includes(y)));
+    const i = sameYear.indexOf(l);
+    return { params: { id: l.id }, props: { l, prev: sameYear[i - 1], next: sameYear[i + 1] } };
+  });
+}
+
+const { l, prev, next } = Astro.props;
+const d = l.data;
+const { Content, headings } = await render(l);
+const topics = headings.filter((h) => h.depth === 2);
+// The tasks that send ākonga here, so they can go straight back
+const usedBy = (await assessments()).filter((a) => a.data.learn.includes(l.id));
+const years = d.years.filter((y) => !HIDDEN_YEARS.includes(y));
+---
+
+<Base title={d.title} description={`Use this when ${d.useWhen}`}>
+  <p class="crumbs"><a href="/">Home</a> › <a href="/learn/">Learn</a> › Year {years.join(', ')}</p>
+  <h1>{d.title}</h1>
+  {d.draft && <p class="draft-banner">Draft: this page isn't on the live site yet.</p>}
+  <p class="lead">Use this when {d.useWhen}</p>
+
+  {
+    topics.length > 1 && (
+      <nav class="on-page" aria-label="On this page" data-pagefind-ignore>
+        <p class="on-page-title">On this page</p>
+        <ol>
+          {topics.map((t) => (
+            <li>
+              <a href={`#${t.slug}`}>{t.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )
+  }
+
+  <div class="learn">
+    <Content />
+  </div>
+
+  <nav class="pager" aria-label="Previous and next" data-pagefind-ignore>
+    {prev ? <a class="btn" href={`/learn/${prev.id}/`}>‹ {prev.data.title}</a> : <span />}
+    {next && <a class="btn" href={`/learn/${next.id}/`}>{next.data.title} ›</a>}
+  </nav>
+
+  {
+    usedBy.length > 0 && (
+      <p class="guides-link">
+        Back to {usedBy.map((a, i) => (<>{i > 0 && ' · '}<a href={`/assessments/${a.id}/`}>{a.data.title}</a></>))}
+        {' · '}<a href="/learn/">All Learn pages</a>
+      </p>
+    )
+  }
+</Base>

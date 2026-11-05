@@ -47,6 +47,13 @@ const GROUP_ORDER = [
   'Set up your own computer',
 ];
 
+export async function learnPages() {
+  return (await getCollection('learn'))
+    .filter(visible)
+    .filter((l) => l.data.years.some((y) => !HIDDEN_YEARS.includes(y)))
+    .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+}
+
 export function guidesByTool(list: CollectionEntry<'guides'>[]) {
   const map = new Map<string, CollectionEntry<'guides'>[]>();
   for (const g of list) {
