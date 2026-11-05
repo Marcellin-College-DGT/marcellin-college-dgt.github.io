@@ -45,11 +45,37 @@ function parse(block, where) {
     });
 }
 
+// Answers are shuffled when the site is built, so the right one isn't always in the same place.
+// The shuffle is seeded by the question's own words: random-looking, but the same every build,
+// so a page never changes order between visits. Changing a question's words reshuffles it.
+function seed(text) {
+  let h = 2166136261;
+  for (const ch of text) h = Math.imul(h ^ ch.codePointAt(0), 16777619);
+  return h >>> 0;
+}
+
+function shuffle(options, text) {
+  let s = seed(text);
+  const rand = () => {
+    s = (s + 0x6d2b79f5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const out = [...options];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 function render(questions, id) {
   const qs = questions
     .map((q, n) => {
       const name = `${id}-${n + 1}`;
-      const opts = q.options
+      const opts = shuffle(q.options, q.question)
         .map(
           (o) =>
             `<label class="opt ${o.right ? 'right' : 'wrong'}"><input type="radio" name="${name}"><span>${fmt(o.text)}</span></label>`,
