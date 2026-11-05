@@ -21,7 +21,7 @@ const sections = headings.filter((h) => h.depth === 2);
 const jumps = [
   ...sections.map((h, i) => ({
     slug: h.slug,
-    label: /^help with/i.test(h.text) ? 'Template help' : i === 0 ? 'Plan' : h.text,
+    label: /^help with/i.test(h.text) ? 'Template help' : /^example/i.test(h.text) ? 'Example' : i === 0 ? 'Plan' : h.text,
   })),
   ...(needed.length ? [{ slug: 'guides', label: 'Guides' }] : []),
 ];

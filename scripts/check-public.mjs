@@ -40,6 +40,20 @@ for (const file of walk(join(root, 'src/content'))) {
   }
 }
 
+// 3. Every /examples/ link in a published page must exist (a folder link needs its index.html)
+for (const file of walk(join(root, 'src/content'))) {
+  if (!file.endsWith('.md')) continue;
+  const text = readFileSync(file, 'utf8');
+  const front = text.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+  if (/^draft:\s*true\s*$/m.test(front)) continue;
+  for (const [, path] of text.matchAll(/\((\/examples\/[^)\s]+)\)/g)) {
+    const target = join(root, 'public', path, path.endsWith('/') ? 'index.html' : '');
+    if (!existsSync(target)) {
+      problems.push(`${relative(root, file)} links to ${path}, but that isn't in public${path}.`);
+    }
+  }
+}
+
 if (problems.length) {
   console.error('\nThe site was not built:\n');
   for (const p of problems) console.error(`  - ${p}`);
