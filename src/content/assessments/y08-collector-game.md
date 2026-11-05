@@ -3,7 +3,7 @@ title: Collector Game for a Younger Whānau Member
 year: 8
 order: 1
 summary: Turn a starter collector game into a game for a younger child (about 5 to 10) in your whānau, then show it on a Google Site.
-handIn: Put your game and site links at the top of your template, then turn it in on Google Classroom
+handIn: Put your game and site links at the top of your template, then turn it in on Google Classroom.
 due: End of Week 4
 links:
   - { label: Open the starter game, url: "https://arcade.makecode.com/S60890-47146-48977-41276" }
@@ -26,9 +26,13 @@ draft: false
 
 Open the starter game with the button above, play it, then click **Edit Code** to make your own copy. At each checkpoint, click **Share** in MakeCode and post the link privately on the Classroom task.
 
+<div class="rules">
+
 **Keep everyone safe.** Keep your end-user's name, photo and school, and your surname, off your site. No younger child? Ask your kaiako: a classmate can act as your end-user. Home play-tests need an adult there.
 
-You must not use generative AI at any stage. That includes Gemini in Google Docs, Sites or Classroom, any AI helper in MakeCode, and AI-made pictures or writing.
+**No generative AI.** You must not use it at any stage. That includes Gemini in Google Docs, Sites or Classroom, any AI helper in MakeCode, and AI-made pictures or writing.
+
+</div>
 
 ## Help with your template
 

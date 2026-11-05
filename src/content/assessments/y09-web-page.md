@@ -3,7 +3,7 @@ title: My Passion Page
 year: 9
 order: 1
 summary: Build a one-page website about something you love, written for one real reader who doesn't know much about it yet.
-handIn: Zip your my-page folder, upload the zip to Google Classroom, then click Turn in. Your template is already attached
+handIn: Zip your my-page folder, upload the zip to Google Classroom, then click Turn in. Your template is already attached.
 due: End of Week 3
 files:
   - { label: Task and rubric, path: /files/assessments/9dgt-my-passion-page.pdf }
@@ -24,9 +24,13 @@ draft: false
 - **Week 2, Part 2: Build.** Make `index.html` and `style.css` in VS Code and preview them with Live Server: click **Go Live**, or right-click `index.html` › **Open with Live Server** (they do the same thing). Checkpoint 2 at the end of Week 2.
 - **Week 3, Part 3: Test, get feedback and improve.** Test your page, swap feedback in the gallery walk and make changes.
 
+<div class="rules">
+
 **Keep it private.** Don't put your full name, address, phone number or school on your page. Don't use photos that show people's faces or where you live.
 
-You must not use generative AI at any stage. That includes Copilot in VS Code, Gemini in Google Docs and AI image makers.
+**No generative AI.** You must not use it at any stage. That includes Copilot in VS Code, Gemini in Google Docs and AI image makers.
+
+</div>
 
 ## Example work
 
