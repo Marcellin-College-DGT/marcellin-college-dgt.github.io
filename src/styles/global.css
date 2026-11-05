@@ -492,3 +492,16 @@ h2[id] {
 .guides-link a {
   font-weight: 700;
 }
+
+/* "Example:" boxes under each template-help question */
+.help blockquote {
+  margin: 4px 0 14px;
+  padding: 10px 14px;
+  background: var(--soft);
+  border-left: 4px solid var(--line);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.help blockquote p {
+  margin: 0;
+}
